@@ -1,0 +1,149 @@
+                        <!-- Swiper Carousel for Product Components -->
+                        <div class="swiper kitSwiper rounded-2xl overflow-hidden shadow-2xl bg-white p-4 md:p-8 relative">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide flex flex-col items-center text-center">
+                                    <img alt="Chậu trồng cây xơ dừa" class="w-full h-auto object-contain max-h-[300px] mb-4" src="images/pot.png" />
+                                    <h4 class="font-bold text-lg text-primary-green">Chậu xơ dừa</h4>
+                                    <p class="text-sm text-gray-500">Thân thiện mang lại sự ấm áp</p>
+                                </div>
+                                <div class="swiper-slide flex flex-col items-center text-center">
+                                    <img alt="Hạt giống hương thảo" class="w-full h-auto object-contain max-h-[300px] mb-4" src="images/seeds.png" />
+                                    <h4 class="font-bold text-lg text-primary-green">Hạt giống yêu thương</h4>
+                                    <p class="text-sm text-gray-500">Gieo mầm hy vọng mới</p>
+                                </div>
+                                <div class="swiper-slide flex flex-col items-center text-center">
+                                    <img alt="Bảng tên gỗ" class="w-full h-auto object-contain max-h-[300px] mb-4" src="images/nameboard.png" />
+                                    <h4 class="font-bold text-lg text-primary-green">Bảng tên ghi nhớ</h4>
+                                    <p class="text-sm text-gray-500">Lưu giữ từng khoảnh khắc</p>
+                                </div>
+                                <div class="swiper-slide flex flex-col items-center text-center">
+                                    <img alt="Thiết kế vỏ hộp" class="w-full h-auto object-contain max-h-[300px] mb-4" src="images/blueprint.png" />
+                                    <h4 class="font-bold text-lg text-primary-green">Vỏ hộp nhật ký</h4>
+                                    <p class="text-sm text-gray-500">Kể câu chuyện của riêng bạn</p>
+                                </div>
+                                <div class="swiper-slide flex flex-col items-center text-center">
+                                    <img alt="Hộp quà BreaTree" class="w-full h-auto object-contain max-h-[300px] mb-4" src="images/giftbox.png" />
+                                    <h4 class="font-bold text-lg text-primary-green">Gói trọn chân thành</h4>
+                                    <p class="text-sm text-gray-500">Món quà từ trái tim xanh</p>
+                                </div>
+                            </div>
+                            <!-- Navigation buttons -->
+                            <div class="swiper-button-next !text-primary-green"></div>
+                            <div class="swiper-button-prev !text-primary-green"></div>
+                            <!-- Pagination -->
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-primary-green">Thiết kế tinh tế &amp; Nhân văn</h2>
+                        <div class="space-y-8">
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-green text-white flex items-center justify-center font-bold">1</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Nhật ký trồng cây</h4>
+                                    <p class="text-gray-600">Tích hợp ngay trên vỏ hộp, giúp bạn ghi lại "hành trình trưởng thành" của cây và những cảm xúc mỗi ngày.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-green text-white flex items-center justify-center font-bold">2</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Vật liệu thân thiện</h4>
+                                    <p class="text-gray-600">Sử dụng giấy Kraft cứng cáp, bền bỉ và có thể tái chế, mang lái cảm giác mộc mạc và gần gũi.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-green text-white flex items-center justify-center font-bold">3</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Đầy đủ phụ kiện</h4>
+                                    <p class="text-gray-600">Trọn bộ gồm hạt giống, viên nén xơ dừa, chậu trồng và hướng dẫn chi tiết - chỉ cần thêm nước và yêu thương.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: Packaging Section -->
+        <!-- BEGIN: Instructions Section -->
+        <section class="py-24 bg-white" id="instructions">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4">5 Bước gieo mầm hạnh phúc</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Hành trình đánh thức tâm hồn xanh trong bạn</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                    <!-- Step 1 -->
+                    <div class="text-center group">
+                        <div class="aspect-square bg-[#f4f7f0] rounded-3xl flex items-center justify-center p-12 mb-6 transition-all duration-300 group-hover:bg-[#e9eee2]">
+                            <svg class="w-12 h-12 text-[#6b7c5c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">1. Đánh thức “ngôi nhà nhỏ”</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed px-2">Ngâm viên nén xơ dừa với một chút nước ấm (khoảng 2–4 tiếng), bạn sẽ thấy nó nở ra mềm mại như một chiếc tổ ấm sẵn sàng đón mầm xanh.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="text-center group">
+                        <div class="aspect-square bg-[#f4f7f0] rounded-3xl flex items-center justify-center p-12 mb-6 transition-all duration-300 group-hover:bg-[#e9eee2]">
+                            <svg class="w-12 h-12 text-[#6b7c5c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">2. Gieo hạt yêu thương</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed px-2">Nhẹ nhàng đặt vài hạt giống hương thảo vào lớp đất xơ dừa, phủ lên một lớp mỏng vừa đủ – như cách bạn “ôm ấp” một điều gì đó rất dịu dàng.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="text-center group">
+                        <div class="aspect-square bg-[#f4f7f0] rounded-3xl flex items-center justify-center p-12 mb-6 transition-all duration-300 group-hover:bg-[#e9eee2]">
+                            <svg class="w-12 h-12 text-[#6b7c5c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">3. Tưới nước & chờ đợi</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed px-2">Tưới một ít nước mỗi ngày để giữ ẩm. Không cần quá nhiều đâu, chỉ cần đều đặn và kiên nhẫn, cây sẽ tự biết cách lớn lên.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="text-center group">
+                        <div class="aspect-square bg-[#f4f7f0] rounded-3xl flex items-center justify-center p-12 mb-6 transition-all duration-300 group-hover:bg-[#e9eee2]">
+                            <svg class="w-12 h-12 text-[#6b7c5c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">4. Đặt ở nơi có ánh sáng</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed px-2">Hãy để chậu cây ở nơi có ánh sáng nhẹ – ban công, cửa sổ… nơi có nắng và cả những khoảnh khắc bình yên.</p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="text-center group">
+                        <div class="aspect-square bg-[#f4f7f0] rounded-3xl flex items-center justify-center p-12 mb-6 transition-all duration-300 group-hover:bg-[#e9eee2]">
+                            <svg class="w-12 h-12 text-[#6b7c5c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">5. Ghi lại câu chuyện của bạn</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed px-2">Đừng quên viết tên cây hoặc ngày bắt đầu lên bảng tên. Vì mỗi mầm cây không chỉ lớn lên… mà còn lưu giữ một kỷ niệm nhỏ của bạn.</p>
+                    </div>
+                </div>
+
+                <div class="mt-20 p-8 bg-primary-green/5 rounded-3xl text-center">
+                    <p class="text-xl italic text-gray-700">
+                        "BreaTree không chỉ là việc trồng một cái cây, mà là một hành trình để đánh thức tâm hồn xanh đang ngủ yên trong trái tim mỗi chúng ta."
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- END: Instructions Section -->
