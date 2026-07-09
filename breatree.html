@@ -1,483 +1,647 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
+<html class="light" lang="vi">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>BreaTree - Giải pháp xanh cho không gian nhỏ</title>
-
+    <title>BreaTree | Nuôi Dưỡng Sự Tĩnh Lặng</title>
+    <link href="style.css" rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;500;600;700;800&amp;display=swap"
         rel="stylesheet" />
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#6B8E6F',
-                        cream: '#F2F2E9',
-                        wood: '#8C7355',
-                        sage: '#DCE5D1',
-                    },
-                    fontFamily: {
-                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
     <style>
-        body {
-            background-color: #F9F9F4;
-            color: #334036;
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Ẩn thanh cuộn nhưng vẫn cuộn được cho mượt */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #6B8E6F;
-            border-radius: 4px;
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #5a7a5d;
+        .stagger-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            transition-delay: 0.4s;
+        }
+
+        .stagger-5 {
+            transition-delay: 0.5s;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
 
-<body class="antialiased">
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2 transition-transform hover:scale-105">
-                <img alt="BreaTree Logo" class="h-10 w-auto object-contain" src="images/logo.png"
-                    onerror="this.src='https://via.placeholder.com/150x40?text=BreaTree'" />
-            </a>
-            <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-700">
-                <a class="hover:text-primary transition-colors" href="#problem">Vấn đề</a>
-                <a class="hover:text-primary transition-colors" href="#solution">Giải pháp</a>
-                <a class="hover:text-primary transition-colors" href="#packaging">Sản phẩm</a>
-                <a class="hover:text-primary transition-colors" href="#instructions">Hướng dẫn</a>
+<body class="bg-white text-on-surface font-body-md selection:bg-primary/20 transition-colors duration-300">
+
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm transition-colors duration-300">
+        <div
+            class="relative flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-4">
+            <a class="font-headline-md text-headline-md font-bold text-primary tracking-tight" href="#">BreaTree</a>
+            <div class="hidden md:flex gap-lg items-center md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
+                <a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md transition-all duration-300"
+                    href="#explorer">Explorer</a>
+                <a class="text-on-surface-variant border-b-2 border-transparent pb-1 hover:text-primary transition-all duration-300 font-label-md text-label-md"
+                    href="#benefits">Benefits</a>
+                <a class="text-on-surface-variant border-b-2 border-transparent pb-1 hover:text-primary transition-all duration-300 font-label-md text-label-md"
+                    href="#process">Process</a>
+                <a class="text-on-surface-variant border-b-2 border-transparent pb-1 hover:text-primary transition-all duration-300 font-label-md text-label-md"
+                    href="#reviews">Reviews</a>
             </div>
-        </nav>
-    </header>
-    <main>
-        <section class="relative h-[85vh] flex items-center overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <img alt="Rosemary plant closeup" class="w-full h-full object-cover" src="images/rosemary.jpg"
-                    onerror="this.src='https://images.unsplash.com/photo-1594950851167-17e9bb763ef1?q=80&w=2000&auto=format&fit=crop'" />
-                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-xl overflow-hidden">
+        <div
+            class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+            <div class="reveal-item stagger-1 z-10">
+                <span
+                    class="inline-block px-4 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full font-label-md text-label-md mb-md">Ươm
+                    mầm an nhiên</span>
+                <h1
+                    class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary dark:text-primary-fixed mb-md leading-tight">
+                    Mang thiên nhiên vào hơi thở đô thị</h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant dark:text-surface-variant mb-lg max-w-md">
+                    Kiến tạo không gian xanh ngay trên bàn làm việc của bạn với bộ kit trồng cây tối giản và tinh tế từ
+                    BreaTree.</p>
+                <div class="flex gap-md">
+                    <a href="#explorer"
+                        class="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md hover:shadow-xl transition-all inline-block text-center">Khám
+                        Phá Ngay</a>
+                    <a href="#benefits"
+                        class="border border-outline text-on-surface-variant dark:text-surface-variant px-8 py-4 rounded-full font-label-md text-label-md hover:bg-surface-container-low transition-all inline-block text-center">Tìm
+                        hiểu thêm</a>
+                </div>
             </div>
-            <div class="container mx-auto px-6 relative z-10 text-white">
-                <div class="max-w-2xl animate-fade-in-up">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                        Mang thiên nhiên vào <br><span class="text-sage">không gian nhỏ</span> của bạn
-                    </h1>
-                    <p class="text-lg md:text-xl mb-10 font-light max-w-lg text-gray-200">
-                        Khám phá bộ kit trồng Hương Thảo (Rosemary) được thiết kế riêng cho sinh viên và những người
-                        sống trong không gian hạn chế.
-                    </p>
-                    <a class="inline-flex items-center justify-center bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-sage hover:text-green-900 transition-all duration-300 shadow-xl hover:-translate-y-1"
-                        href="#packaging">
-                        Khám phá BreaTree
+            <div class="relative reveal-item stagger-2">
+                <div class="absolute -top-20 -right-20 w-80 h-80 bg-primary-fixed opacity-20 blur-3xl rounded-full">
+                </div>
+                <div class="relative rounded-xl overflow-hidden shadow-2xl aspect-[4/5]">
+                    <img alt="BreaTree Seedling" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuALmuHz8B9MmwXZoHnNIzSoJ2odWJ4BVWfJysQ0wdf9znNfZ_jC3HY3WgeXEHAgtCg8m0PbxX1ZDg5Uc_JiW_wqV0K6G2OhnyOyeRlmd9KK8-HhW1qGShkmw0kYb8tkno8JmJ2h59DkpVtC6KH_zgc1BpDd-8igQcGb9HZN6K4gHcXTJOOhmnKagXL2x9jGJYXS78lhu-qpp2e4YwCT6dN3ZCVGXlkDd-6IEJnSrSBNdnSDcbaChPNFRapYBg7GbWR1VvM" />
+                </div>
+                <!-- Glassmorphic Overlay -->
+                <div
+                    class="absolute bottom-base right-base md:-bottom-lg md:-left-lg md:right-auto glass-card p-md rounded-lg max-w-xs reveal-item stagger-3">
+                    <p class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold mb-xs">Cảm hứng
+                        từ thiên nhiên</p>
+                    <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Từng mầm non
+                        được thiết kế để mang lại sự cân bằng hoàn hảo cho tâm hồn bận rộn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem/Solution Section -->
+    <section class="py-xl bg-surface-container-low/50">
+        <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+            <div class="flex flex-col md:flex-row gap-xl items-center">
+                <div class="md:w-1/2 grid grid-cols-2 gap-md reveal-item stagger-1">
+                    <div class="mt-lg">
+                        <div class="rounded-lg overflow-hidden h-64 mb-md shadow-lg">
+                            <img class="w-full h-full object-cover"
+                                data-alt="A macro photography shot of lush green leaves covered in tiny water droplets, representing freshness and vitality, soft morning sunlight, serene garden atmosphere."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfSyRTLU0FUPoIMqqRq_CBp4CPMWG92VMlQuT_ybZaE0sh784mo9VmB-jXRYXPQcfD1IjbpsP4qHhUq4GYSVxAx5f4PAnT_wyiBqt8d0Q7f9G1QgqEDRxHOXdeErYSTH-sjDXDevionn37KUx3RLLPTE822zQSBQfqg19kR5gLGVG0j0BRDyRaUotuWAZd5J5d7S8ElsAVQJSStVSWajk_hnnJKc4gRP1aFlPOO9sWK65SyLrbiBluvQ" />
+                        </div>
+                        <div class="rounded-lg overflow-hidden h-40 shadow-lg">
+                            <img class="w-full h-full object-cover"
+                                data-alt="A clean, minimalist workspace with a small terracotta pot and a green seedling next to a sleek laptop, bright natural lighting, soft shadows, organized and peaceful."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZfiSDZsJ488V36JEtHYsUTObpUiSXhu8xoXS2Xhu34aSwkm_f6rQLTBJaWpZz0OQZHT7IuxCC38nmImS9o4WUSAag6zslM-CWjdZUvhHXEbDY7QYzCnoynQyArBzcEB73LXWX2sEfGGO4jq9VM39GqUnWssHw9QSiVLEK3jF97Gohekc7WBWcgsNjSXaHvByFSH4gkx0iA9ngAyihfyqN4MlQq-fjg4skocXLm-pAqJQ8qAXEFXekCw" />
+                        </div>
+                    </div>
+                    <div>
+                        <div class="rounded-lg overflow-hidden h-40 mb-md shadow-lg">
+                            <img class="w-full h-full object-cover"
+                                data-alt="Hands gently holding a handful of rich brown organic soil, soft focus background of a green garden, natural earthy tones, emphasizing the connection to earth."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnuCNnFy_Q3SQKpOlzbriU5_C0D_6LuW0cIIUl84cQqqzWQhYzRqcHWoE4rWeS3A_B2PE5MyXIgEwiR93XXXjJ_Z0lb1scP7ID1IGw_kHc8r5S4PpiDKMWazp5P9U2pVQnOVgm6FL2f8XOsR8TNTRCc1tsQG2xCUAt_oipvbyVy0I84BofHDYEyGKRnzLhoJCqFn_rMc_ZsW_aUejXiv5m85hvyavbllMezAgqbNYzgBjg0yKIbbGjkg" />
+                        </div>
+                        <div class="rounded-lg overflow-hidden h-64 shadow-lg">
+                            <img class="w-full h-full object-cover"
+                                data-alt="Modern interior living room with large glass windows and many indoor plants, soft sunlight filtering through leaves, warm cream and wood tones, high-end minimalist design."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBuGqzxlV5YE0Pc56UIYp7qbAoM-bro1IyNJq4gMbKgQgP6fk8IUOsdygNjwAdmxIxpuFnzqJK2T0tYfllt4rBEvD3WerQ2FboRJHaHItmgOvZHQGkNGZFfIjHL2cTsbHViydsG3Ajat6xoEvbnNTABiCpyQNHKqdtLh83F_7MRWXaU9UriXHXV_EpQUim2lw9-zRZbEaiIRBF4GOx8U2NCT4bZ7dqjuw-bYoCegBD6brp61WdnuKItg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 reveal-item stagger-2">
+                    <h2
+                        class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary dark:text-primary-fixed mb-md">
+                        Tại sao là BreaTree?</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant dark:text-surface-variant mb-lg">Cuộc
+                        sống đô thị đôi khi khiến ta quên đi nhịp thở của tự nhiên. BreaTree không chỉ là một bộ kit
+                        trồng cây, đó là một nghi thức nhỏ mỗi sáng để bạn kết nối lại với chính mình.</p>
+                    <div class="space-y-md">
+                        <div
+                            class="flex items-start gap-md p-md bg-white/50 dark:bg-white/5 rounded-lg border border-outline-variant hover:border-primary transition-colors">
+                            <span
+                                class="material-symbols-outlined text-primary bg-primary-fixed p-sm rounded-full">spa</span>
+                            <div>
+                                <h4
+                                    class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">
+                                    Giảm căng thẳng</h4>
+                                <p class="text-on-surface-variant dark:text-surface-variant">Việc chăm sóc cây xanh giúp
+                                    giảm 20% mức độ cortisol trong máu.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-start gap-md p-md bg-white/50 dark:bg-white/5 rounded-lg border border-outline-variant hover:border-primary transition-colors">
+                            <span
+                                class="material-symbols-outlined text-primary bg-primary-fixed p-sm rounded-full">air</span>
+                            <div>
+                                <h4
+                                    class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">
+                                    Lọc sạch không khí</h4>
+                                <p class="text-on-surface-variant dark:text-surface-variant">Cung cấp oxy tươi mới cho
+                                    không gian làm việc kín của bạn.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Bento Grid -->
+    <section class="py-xl" id="benefits">
+        <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop text-center mb-xl reveal-item">
+            <h2
+                class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary dark:text-primary-fixed mb-sm">
+                Lợi ích bền vững</h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant dark:text-surface-variant max-w-2xl mx-auto">
+                Thiết kế tinh tế đi cùng với cam kết về môi trường và trải nghiệm người dùng.</p>
+        </div>
+        <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-md">
+            <div
+                class="p-lg bg-white border border-outline-variant dark:bg-white/5 rounded-xl reveal-item stagger-1 flex flex-col justify-between hover:shadow-md transition-all duration-300">
+                <span class="material-symbols-outlined text-4xl text-primary mb-xl">eco</span>
+                <div>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-sm">100% Hữu cơ</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Hạt giống và giá thể hoàn toàn tự
+                        nhiên, không hóa
+                        chất độc hại.</p>
+                </div>
+            </div>
+            <div
+                class="md:col-span-2 p-lg bg-white border border-outline-variant dark:bg-white/5 rounded-xl reveal-item stagger-2 flex flex-col md:flex-row gap-lg items-center hover:shadow-md transition-all duration-300">
+                <div class="flex-1">
+                    <span class="material-symbols-outlined text-4xl text-primary mb-xl">design_services</span>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-sm">Thiết kế
+                        tối giản</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Chậu gốm
+                        nung thủ công với những đường nét thanh mảnh, phù hợp với mọi phong cách nội thất từ
+                        Scandinavian đến Zen.</p>
+                </div>
+                <div class="w-full md:w-1/2 h-48 rounded-lg overflow-hidden shadow-inner">
+                    <img class="w-full h-full object-cover"
+                        data-alt="A top-down view of a minimalist ceramic pot on a wooden tray, surrounding by white marble elements, elegant and high-end aesthetic with soft focus."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd0x6AtIR8uPUhYyj2G6w3Tt2kB6NOLl2WGM5pisHrwxyxKQf3Np6ptNE8RwEIA8Wy9BVyoddRYwBEdPstHvM997oHi0QboTKuVXMtPjlOeKGcImQxuasgyujxtZIXadE6YJGbQld7G_qW-0C9aY00aMiKeRN43gib2U3lOKtFpoGChM6kXfKIZw1CPCiHwLfvZEFpeFqsjTQDsxGHVDCqlpYiTVGyiBdoIEyLWm4YJuLYzUn2JEYKwQ" />
+                </div>
+            </div>
+            <div
+                class="md:col-span-2 p-lg bg-white border border-outline-variant dark:bg-white/5 rounded-xl reveal-item stagger-3 flex flex-col md:flex-row-reverse gap-lg items-center hover:shadow-md transition-all duration-300">
+                <div class="flex-1">
+                    <span class="material-symbols-outlined text-4xl text-primary mb-xl">psychology</span>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-sm">Chữa lành
+                        tâm hồn</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Liệu pháp
+                        chăm sóc cây cảnh giúp bạn rèn luyện sự kiên nhẫn và lòng trắc ẩn đối với sự sống.</p>
+                </div>
+                <div class="w-full md:w-1/2 h-48 rounded-lg overflow-hidden shadow-inner">
+                    <img class="w-full h-full object-cover"
+                        data-alt="A person gently watering a tiny green plant with a sleek glass spray bottle, soft morning light illuminating the scene, calm and meditative mood."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBamt2DzncKrzcOAnxEa1OQ6D-cN0qDts0Q9KcdJZu1-NeTEHXaoKq5eKP73X3Wiw7UDpmobHX6BjOk069amTTpknZ_fXglytgy8XH76g4XSkMTxwAsE8mZLPl2KWmqWm91l6pke4qH1zntscGjAb8cZYhSOlmXvC9es_R8Pcmw_zpbJBftd3kZ896odPGeXnG1RzI9F1Yv4Ows_Daoqp-DY3IbdSU7380x-UfAfeNPONHEcZQft9Zmkg" />
+                </div>
+            </div>
+            <div
+                class="p-lg bg-white border border-outline-variant dark:bg-white/5 rounded-xl reveal-item stagger-4 flex flex-col justify-between hover:shadow-md transition-all duration-300">
+                <span class="material-symbols-outlined text-4xl text-primary mb-xl">auto_awesome</span>
+                <div>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-sm">Quà tặng ý
+                        nghĩa</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Món quà hoàn hảo để trao gửi yêu
+                        thương và sự bình yên.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Interactive Section -->
+    <section id="explorer" class="py-xl bg-surface-container-highest/30 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+            <div class="text-center mb-xl reveal-item">
+                <h2
+                    class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary dark:text-primary-fixed mb-sm">
+                    Trọn bộ Kit BreaTree</h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant dark:text-surface-variant">Sự kết hợp hoàn
+                    hảo của 5 thành phần tinh tuyển.</p>
+            </div>
+
+            <div class="relative group/slider">
+                <!-- Navigation Buttons -->
+                <button id="slider-prev"
+                    class="hidden md:flex absolute left-2 md:-left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-md border border-gray-200 items-center justify-center text-primary shadow-lg hover:bg-primary hover:text-white transition-all scale-95 hover:scale-105 active:scale-90 cursor-pointer z-20"
+                    aria-label="Previous items">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button id="slider-next"
+                    class="hidden md:flex absolute right-2 md:-right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 backdrop-blur-md border border-gray-200 items-center justify-center text-primary shadow-lg hover:bg-primary hover:text-white transition-all scale-95 hover:scale-105 active:scale-90 cursor-pointer z-20"
+                    aria-label="Next items">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+
+                <div
+                    class="flex overflow-x-auto no-scrollbar gap-lg px-margin-mobile pb-lg -mx-margin-mobile md:mx-0 snap-x">
+                    <!-- Kit Item 1 -->
+                    <div
+                        class="min-w-[280px] md:min-w-[320px] snap-center glass-card p-md rounded-xl group transition-all duration-300 hover:shadow-xl">
+                        <div class="h-64 rounded-lg overflow-hidden mb-md">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                data-alt="A handmade terracotta pot with a smooth matte finish, warm orange-brown earth tones, sitting on a sunlit wooden table, high-end pottery photography."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-b0kdG64IQmDSrZUD2ukMoFMXXGOCscu4aiv0MdJL6Hm_PBH2R5cVvE9mSxWAOJiwiaiCRskNKB1J7sOc5XZhITgb7JFIxvlk01lLuS-8UOD_2lLFH9DLw_VzJJelAE0lsYokYWJWQeCcyfctELoJ5EPvnqzSyykWpk0n4NXbg3lcP5jvV0qTr94txR0u7KuXzL8wC4NWfJt-gs3mT2hP9nWUtau8Ln8oGLiqkOvHGZuqqf2Do0xWow" />
+                        </div>
+                        <h4 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">Chậu
+                            gốm
+                            (Pot)</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Gốm nung
+                            ở
+                            nhiệt độ cao, thoáng khí, bảo vệ rễ cây tối ưu.</p>
+                    </div>
+                    <!-- Kit Item 2 -->
+                    <div
+                        class="min-w-[280px] md:min-w-[320px] snap-center glass-card p-md rounded-xl group transition-all duration-300 hover:shadow-xl">
+                        <div class="h-64 rounded-lg overflow-hidden mb-md">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                data-alt="Macro photo of various organic seeds spread on a clean white surface, natural patterns and textures, high clarity, minimalist botanical aesthetic."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq6O-egKIFUFxsSanaIrReyczVLm2o08Gtj6-BOFskIX66oy2jRqnuHsmDfr1MQntu888TqmG2HtiMENdcZSHfYhQ5EcijukUvez7I07dUyEHxLi91ttmIIOGzmlwlBginkdQu9oPB4nJFfwoXq3dhWXW4YoO6qTqPKX6SPvJ0vyy-3QeoAt7dqHLEP5nYkugV70eEL22rcGOUo5M_N-CiwRtA42p6wRKRkeR3N6oU_6vVHuvQ_fvgRg" />
+                        </div>
+                        <h4 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">Hạt
+                            giống
+                            (Seeds)</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Lựa chọn
+                            các
+                            loại cây dễ trồng, tỷ lệ nảy mầm trên 95%.</p>
+                    </div>
+                    <!-- Kit Item 3 -->
+                    <div
+                        class="min-w-[280px] md:min-w-[320px] snap-center glass-card p-md rounded-xl group transition-all duration-300 hover:shadow-xl">
+                        <div class="h-64 rounded-lg overflow-hidden mb-md">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                data-alt="A minimalist wooden plant marker with a hand-written botanical name, elegant calligraphy, standing in dark rich soil, soft focus garden background."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2lxERb0RWDTUHYzYY2uiqJIoAv8bLRsaOv2tFV2H6qdhbuJcsLgqRexZiSQMo1YRgt83lS9SNdl6cqNoV_-e1bmebbvp1D5je8A39iABOzYCeyvWHx9477eBeJkc__fQ2JZP0a1gSYdZW6F3hK4sZtLl2sCSq4EfmGqNZdZq8WXGoQ6zR7vlyoW2DkMAyBZidDxL_FJFefEEUK5ya5W-APYvqueK4iSc8KTWTqFMwbGAHmrMXTn_CXg" />
+                        </div>
+                        <h4 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">Biển
+                            tên
+                            (Nameboard)</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Làm từ gỗ
+                            sồi
+                            cao cấp, giúp bạn cá nhân hóa tên "người bạn" xanh.</p>
+                    </div>
+                    <!-- Kit Item 4 -->
+                    <div
+                        class="min-w-[280px] md:min-w-[320px] snap-center glass-card p-md rounded-xl group transition-all duration-300 hover:shadow-xl">
+                        <div class="h-64 rounded-lg overflow-hidden mb-md">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                data-alt="A high-end recycled cardboard box with a minimalist BreaTree logo, elegant eco-friendly packaging design, soft neutral tones."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAve0ZUBYQFn7LnIdtoq01IUjzKNjZ9lnK3QUzmNtbYmNrsx-keTyR_derAhCtYsJ607vXEWmdMId47ykZ0fEqvbI4JrlnKY_tRybw-pFbcebd5CMk7He5mDDBTef3IeFQASnzbJ2P2BV2ZG4ETezGdtIHX8wQ69TMxUdRAG70RSBm0xA-ssuyrk7iqfWbD_xsCDoLL3SuyoY7_xsr1Ghcl6gSQw91wX5La858EXVHRn5EoN5Ie9eEHeQ" />
+                        </div>
+                        <h4 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">Hộp bảo
+                            vệ
+                            (Box)</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Thiết kế
+                            bền
+                            bỉ, sử dụng vật liệu tái chế thân thiện môi trường.</p>
+                    </div>
+                    <!-- Kit Item 5 -->
+                    <div
+                        class="min-w-[280px] md:min-w-[320px] snap-center glass-card p-md rounded-xl group transition-all duration-300 hover:shadow-xl">
+                        <div class="h-64 rounded-lg overflow-hidden mb-md">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                data-alt="A beautifully wrapped gift box with a sage green silk ribbon and a small dried flower branch, high-end luxury gift packaging, serene and sophisticated."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTJnECgrvpvE7GLLHh5flrfNYRqA5DMfLnWsHPq3yU7Rw7EE8_1nNf_DkS1JMDa3X7-GeGibJtjp2T_N2l60VkQ2HleKsBax99ZZpXk8MXpSQtuFg70YOnc-19Pr-yox6tE9CnRbfa9ERrSQ_3gbBm23s9RimAPcuHYpXZloF4yci37z0yAWCMe5f-KzjDNzEly2cp0af48IB-tuTX1EfiVCWma6OMIjRCtvzrKzkfykFY4C7br7YWtQ" />
+                        </div>
+                        <h4 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">Hộp quà
+                            (Giftbox)</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Phiên bản
+                            đặc
+                            biệt sang trọng dành cho những dịp quan trọng.</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Guide Section -->
+    <section class="py-xl" id="process">
+        <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+            <h2
+                class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary dark:text-primary-fixed text-center mb-xl reveal-item">
+                Hành trình 5 bước gieo mầm</h2>
+            <div class="relative">
+                <!-- Vertical Line for Desktop -->
+                <div
+                    class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-outline-variant/30 transform -translate-x-1/2">
+                </div>
+                <div class="space-y-xl">
+                    <!-- Step 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center reveal-item stagger-1">
+                        <div class="md:w-1/2 md:pr-xl mb-md md:mb-0 md:text-right">
+                            <h3 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">01.
+                                Chuẩn bị giá thể</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Làm
+                                ẩm viên nén xơ dừa với nước ấm để nở đều, tạo môi trường dinh dưỡng lý tưởng.</p>
+                        </div>
+                        <div
+                            class="z-10 bg-primary w-12 h-12 rounded-full flex items-center justify-center text-on-primary font-bold shadow-lg">
+                            1</div>
+                        <div class="md:w-1/2 md:pl-xl hidden md:block">
+                            <div class="h-32 w-48 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="A close-up of dark, moist coconut coir peat being prepared for planting, organic textures, soft natural lighting."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgWUEOrXlSwmxL37oonVfOUSlmDcuBvzwlRmeWF-SlfIY2bzwpAYALJob0X428zJTdMEDf-FP7i70KzhQKR3koZu-1bdTcWrfjSvk9DQdLNenkcA_QyC4ApsNfZ-9valMzN8qAWI_6-nh7zqWOVJY9b9Bp_OH8FET08nXOYtq31UeXa5qSchk1ZrneSd4hds67AyVs06HzkdfQ_2_yDsFxb7ORPOCV38P0P2LBTr76cf9bpIR5hZ-vEw" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative flex flex-col md:flex-row-reverse items-center reveal-item stagger-2">
+                        <div class="md:w-1/2 md:pl-xl mb-md md:mb-0">
+                            <h3 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">02.
+                                Gieo hạt hy vọng</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Rải
+                                nhẹ hạt giống lên bề mặt và phủ một lớp đất mỏng. Đừng quên đặt biển tên cho cây nhé.
+                            </p>
+                        </div>
+                        <div
+                            class="z-10 bg-primary w-12 h-12 rounded-full flex items-center justify-center text-on-primary font-bold shadow-lg">
+                            2</div>
+                        <div class="md:w-1/2 md:pr-xl hidden md:block flex justify-end">
+                            <div class="h-32 w-48 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="A hand delicately placing a small seed into a soil-filled ceramic pot, focused and calm atmosphere, high-end gardening shot."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbSkE9DYs_5xiSiY5U2aSEsAhy_vlPSUK-16MPl5TEs9meC2NXUD9yaSOlSR9ceV-vOP0iPYiWc3fdXoSWSjhLbavfegtg7vHqrhe8Jbj1JXNQgj6QM73KuSgFEEfUDJqQaOG5IJPk6_eRgHUxwzn-uN82MNporwDcB1bEkk4cXnU2WjWn7T9CbU-5sA7I_WNe1BHVtJuZQ9CNzy8ewtJjO3i-LQhKKAXCILujqDKEH9NsFP8ypEjTjw" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative flex flex-col md:flex-row items-center reveal-item stagger-3">
+                        <div class="md:w-1/2 md:pr-xl mb-md md:mb-0 md:text-right">
+                            <h3 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">03.
+                                Đón nắng ban mai</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Đặt
+                                chậu cây ở nơi có ánh sáng tán xạ, tránh nắng gắt để mầm non không bị tổn thương.</p>
+                        </div>
+                        <div
+                            class="z-10 bg-primary w-12 h-12 rounded-full flex items-center justify-center text-on-primary font-bold shadow-lg">
+                            3</div>
+                        <div class="md:w-1/2 md:pl-xl hidden md:block">
+                            <div class="h-32 w-48 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="A small pot on a window sill with soft morning sun rays shining through, particles of dust in the light, peaceful and ethereal."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDysWNM6zim-0xO4sL4UFSNVeC93l1fzabmC3hcsO0WJl4zepiaT1OMiBppvECtUpOA5fadlu7rI8APLsRKFx3BdZemqQN5-i39XbU9asdShyoqxJU0fzgzWAX38JQI1oYJQ-f6U052tNJl4nATgXwRgjtggOYbB2D56kvNKFaJZFToII-A1zh1WDz50mDd0RsTc-em7NeRM-WALRLpXXsPHhR7YajS9RYLOgf-Usihv5fYy2sHd6uUQ" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="relative flex flex-col md:flex-row-reverse items-center reveal-item stagger-4">
+                        <div class="md:w-1/2 md:pl-xl mb-md md:mb-0">
+                            <h3 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">04.
+                                Kiên nhẫn &amp; Chăm sóc</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Tưới
+                                nước dạng sương mỗi sáng. Sự nảy mầm sẽ diễn ra sau 3-7 ngày tùy loại cây.</p>
+                        </div>
+                        <div
+                            class="z-10 bg-primary w-12 h-12 rounded-full flex items-center justify-center text-on-primary font-bold shadow-lg">
+                            4</div>
+                        <div class="md:w-1/2 md:pr-xl hidden md:block flex justify-end">
+                            <div class="h-32 w-48 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="Tiny green sprouts emerging from dark soil, showing resilience and growth, macro photography, soft blurry background."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuApvEpVYDlej27xi2_2NgnWlAG25e31jIZYle1Q4O_A0RvcGky38pazGb9RSsX8-IBQT01Olhn7BMOW-nKXsT9lx9STyqoR78_7sRHPKRq2iM0t7TI5XTnuiHYQJP194OeVhcnMCdhMDXfvQyBQRK_PCzIKJ1UgRrovArVoh62ZiNQuwtuEcBIZPKZlnM_QBz2zjke0p-XwP_O_cFKpTl4q02rR4vk3UlAq9TEleXAKj2fewhe9gvpTww" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="relative flex flex-col md:flex-row items-center reveal-item stagger-5">
+                        <div class="md:w-1/2 md:pr-xl mb-md md:mb-0 md:text-right">
+                            <h3 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-xs">05.
+                                Tận hưởng sự tĩnh lặng</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Ngắm
+                                nhìn cây lớn lên mỗi ngày chính là cách bạn nuôi dưỡng tâm hồn mình.</p>
+                        </div>
+                        <div
+                            class="z-10 bg-primary w-12 h-12 rounded-full flex items-center justify-center text-on-primary font-bold shadow-lg">
+                            5</div>
+                        <div class="md:w-1/2 md:pl-xl hidden md:block">
+                            <div class="h-32 w-48 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="A person smiling peacefully while looking at their grown plant on their desk, warm interior lighting, feeling of accomplishment and serenity."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv4QjcarKTE4_CrAEninSrlQyoAjX0H_unQzoWa0IUzhWU-oDycmz-fWAypal0BrmlyYKO2fvGJg6VJxVnUX_PZs5Lii1nbJDempJCLsuF_N8jNf9C3tn0UTWZp3NVKgrE8OlfJOeK503szEpAJbQy-xZJjeMavaeElPKx2J3KpxPKxMATuAFIMUTGVU-usj5XQQ3M3CIoG7A6cEUpfB1v-cM0yeTKeIyPqRFjVOjhDMLnjlC3eBTsUw" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Elegant Quote Section / Reviews -->
+    <section id="reviews" class="py-xl bg-primary text-on-primary relative overflow-hidden">
+        <!-- Abstract Background Shape -->
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-primary-container opacity-20 rounded-full blur-3xl"></div>
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary-container opacity-20 rounded-full blur-3xl"></div>
+        <div class="max-w-4xl mx-auto px-margin-mobile text-center relative z-10 reveal-item">
+            <span class="material-symbols-outlined text-6xl opacity-30 mb-lg">format_quote</span>
+            <blockquote
+                class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl italic mb-xl font-light">
+                "Trồng một cái cây là tin tưởng vào ngày mai."
+            </blockquote>
+            <cite class="font-label-md text-label-md uppercase tracking-widest opacity-70">— Audrey Hepburn</cite>
+            <div class="mt-xl pt-xl border-t border-white/10">
+                <p class="font-body-lg text-body-lg mb-lg">Tham gia cộng đồng người yêu cây cùng BreaTree</p>
+                <div class="flex flex-wrap justify-center gap-md">
+                    <a href="https://www.facebook.com/share/1CRPjJXxaj/?mibextid=wwXIfr" target="_blank"
+                        rel="noopener noreferrer"
+                        class="bg-white text-primary hover:bg-primary-fixed px-8 py-4 rounded-full font-bold hover:shadow-xl transition-all flex items-center gap-sm">
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+
                     </a>
                 </div>
             </div>
-        </section>
-        <section class="py-24 bg-cream" id="problem">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row items-center gap-16">
-                    <div class="w-full md:w-1/2">
-                        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary">
-                            Bạn có đang cảm thấy ngột ngạt?
-                        </h2>
-                        <div class="space-y-4 text-gray-700 leading-relaxed text-lg">
-                            <p>Cuộc sống trong những căn phòng trọ nhỏ hẹp hay ký túc xá thường thiếu đi mảng xanh cần
-                                thiết.</p>
-                            <p>Áp lực học tập và thi cử liên tục khiến tâm trí bạn luôn căng thẳng, khó tập trung và cảm
-                                thấy bí bách trong chính nơi ở của mình.</p>
-                            <div class="pt-6 mt-8 border-t border-gray-300/50">
-                                <ul class="space-y-4 font-medium">
-                                    <li class="flex items-center gap-4">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                                    d="M5 13l4 4L19 7"></path>
-                                            </svg></div>
-                                        <span>Không gian hạn hẹp, khó trang trí</span>
-                                    </li>
-                                    <li class="flex items-center gap-4">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                                    d="M5 13l4 4L19 7"></path>
-                                            </svg></div>
-                                        <span>Mệt mỏi sau những giờ học căng thẳng</span>
-                                    </li>
-                                    <li class="flex items-center gap-4">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                                    d="M5 13l4 4L19 7"></path>
-                                            </svg></div>
-                                        <span>Thiếu sự kết nối với thiên nhiên</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-1/2">
-                        <img alt="Cramped study desk needing green"
-                            class="rounded-3xl shadow-2xl object-cover w-full aspect-[4/3] hover:scale-[1.02] transition-transform duration-500"
-                            src="images/workspace.png"
-                            onerror="this.src='https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=1000&auto=format&fit=crop'" />
-                    </div>
-                </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low dark:bg-[#0c0e0b] w-full rounded-t-lg transition-colors duration-300">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center gap-md px-margin-mobile md:px-margin-desktop py-lg max-w-7xl mx-auto">
+            <div class="text-center md:text-left">
+                <a class="font-headline-sm text-headline-sm font-bold text-secondary dark:text-secondary-fixed mb-xs block"
+                    href="#">BreaTree</a>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-xs">© 2026 BreaTree. Cultivating
+                    tranquility in urban spaces.</p>
             </div>
-        </section>
-        <section class="py-24 bg-white" id="solution">
-            <div class="container mx-auto px-6">
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Lợi ích</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Giải pháp xanh từ BreaTree</h2>
-                    <p class="text-gray-500 text-lg">Tại sao Hương Thảo là người bạn đồng hành lý tưởng cho sinh viên?
-                    </p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div
-                        class="p-8 rounded-3xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
-                        <div
-                            class="w-14 h-14 bg-primary/10 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-7 h-7 text-primary group-hover:text-white" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path
-                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3m0-6c-1.657 0-3 1.343-3 3s1.343 3 3 3"
-                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">Tăng cường sự tập trung</h3>
-                        <p class="text-gray-600 leading-relaxed">Hương thơm từ lá Hương Thảo được chứng minh giúp cải
-                            thiện trí nhớ và tăng khả năng tập trung khi học bài.</p>
-                    </div>
-                    <div
-                        class="p-8 rounded-3xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
-                        <div
-                            class="w-14 h-14 bg-primary/10 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-7 h-7 text-primary group-hover:text-white" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path
-                                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">Giảm căng thẳng</h3>
-                        <p class="text-gray-600 leading-relaxed">Việc chăm sóc cây xanh là liệu pháp chữa lành tự nhiên,
-                            giúp bạn cân bằng cảm xúc sau những giờ thi cử áp lực.</p>
-                    </div>
-                    <div
-                        class="p-8 rounded-3xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
-                        <div
-                            class="w-14 h-14 bg-primary/10 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-7 h-7 text-primary group-hover:text-white" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path
-                                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">Tối ưu diện tích</h3>
-                        <p class="text-gray-600 leading-relaxed">Kích thước kit nhỏ gọn (10x10x10 cm), hoàn toàn phù hợp
-                            để đặt trên bàn học, bậu cửa sổ hay kệ sách.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="py-24 bg-[#F8FAF8]" id="packaging">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col lg:flex-row items-center gap-16">
-                    <div class="w-full lg:w-1/2">
-                        <div class="relative group">
-                            <div
-                                class="rounded-[2.5rem] overflow-hidden shadow-2xl bg-white p-8 min-h-[450px] flex items-center justify-center border-4 border-white">
-                                <img id="slider-img" src="images/pot.png" alt="Chậu xơ dừa"
-                                    class="w-full h-auto object-contain max-h-[350px] transition-all duration-500 ease-in-out transform scale-100"
-                                    onerror="this.src='https://via.placeholder.com/400x400?text=Sản+Phẩm'">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="w-full lg:w-1/2">
-                        <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight text-gray-800">
-                            Thiết kế tinh tế & <br><span class="text-primary">Nhân văn</span>
-                        </h2>
-
-                        <div class="mb-8 min-h-[120px]">
-                            <div id="product-content"
-                                class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-primary transition-all duration-300">
-                                <h3 id="product-title" class="text-2xl font-bold text-gray-900 mb-2">Chậu xơ dừa</h3>
-                                <p id="product-desc" class="text-gray-600 italic text-lg">Thân thiện mang lại sự ấm áp
-                                    cho mầm xanh của bạn.</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-4 mb-10">
-                            <div class="flex items-center gap-4 text-gray-700 bg-white/50 p-3 rounded-lg">
-                                <div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
-                                <p class="font-medium">Vật liệu 100% tự nhiên</p>
-                            </div>
-                            <div class="flex items-center gap-4 text-gray-700 bg-white/50 p-3 rounded-lg">
-                                <div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
-                                <p class="font-medium">Dễ dàng phân hủy sinh học</p>
-                            </div>
-                            <div class="flex items-center gap-4 text-gray-700 bg-white/50 p-3 rounded-lg">
-                                <div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
-                                <p class="font-medium">Tích hợp nhật ký tăng trưởng</p>
-                            </div>
-                        </div>
-
-                        <button onclick="changeProduct()"
-                            class="flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-[#5a7a5d] hover:shadow-lg transition-all hover:-translate-y-1 group">
-                            <span class="uppercase tracking-widest text-sm">Khám phá bộ Kit</span>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="py-24 bg-white" id="instructions">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-20">
-                    <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Hướng dẫn</span>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">5 Bước gieo mầm hạnh phúc</h2>
-                    <p class="text-gray-500 text-lg max-w-2xl mx-auto">Hành trình đánh thức tâm hồn xanh trong bạn</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                    <div class="text-center group">
-                        <div
-                            class="aspect-square bg-cream rounded-[2rem] flex items-center justify-center p-10 mb-6 transition-all duration-300 group-hover:bg-sage group-hover:shadow-lg group-hover:-translate-y-2 relative">
-                            <div
-                                class="absolute -top-4 -right-4 w-10 h-10 bg-primary text-white font-bold rounded-full flex items-center justify-center text-lg shadow-md">
-                                1</div>
-                            <svg class="w-16 h-16 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
-                        </div>
-                        <h4 class="font-bold text-xl mb-3 text-gray-800">Đánh thức <br> "ngôi nhà nhỏ"</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">Ngâm viên nén xơ dừa với nước ấm (2-4h) để nó
-                            nở ra mềm mại sẵn sàng đón mầm xanh.</p>
-                    </div>
-
-                    <div class="text-center group">
-                        <div
-                            class="aspect-square bg-cream rounded-[2rem] flex items-center justify-center p-10 mb-6 transition-all duration-300 group-hover:bg-sage group-hover:shadow-lg group-hover:-translate-y-2 relative">
-                            <div
-                                class="absolute -top-4 -right-4 w-10 h-10 bg-primary text-white font-bold rounded-full flex items-center justify-center text-lg shadow-md">
-                                2</div>
-                            <svg class="w-16 h-16 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h4 class="font-bold text-xl mb-3 text-gray-800">Gieo hạt <br> yêu thương</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">Nhẹ nhàng đặt hạt giống hương thảo vào đất và
-                            phủ lên một lớp mỏng dịu dàng.</p>
-                    </div>
-
-                    <div class="text-center group">
-                        <div
-                            class="aspect-square bg-cream rounded-[2rem] flex items-center justify-center p-10 mb-6 transition-all duration-300 group-hover:bg-sage group-hover:shadow-lg group-hover:-translate-y-2 relative">
-                            <div
-                                class="absolute -top-4 -right-4 w-10 h-10 bg-primary text-white font-bold rounded-full flex items-center justify-center text-lg shadow-md">
-                                3</div>
-                            <svg class="w-16 h-16 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h4 class="font-bold text-xl mb-3 text-gray-800">Tưới nước <br> & chờ đợi</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">Tưới một ít nước mỗi ngày để giữ ẩm. Hãy kiên
-                            nhẫn, cây sẽ tự biết cách lớn lên.</p>
-                    </div>
-
-                    <div class="text-center group">
-                        <div
-                            class="aspect-square bg-cream rounded-[2rem] flex items-center justify-center p-10 mb-6 transition-all duration-300 group-hover:bg-sage group-hover:shadow-lg group-hover:-translate-y-2 relative">
-                            <div
-                                class="absolute -top-4 -right-4 w-10 h-10 bg-primary text-white font-bold rounded-full flex items-center justify-center text-lg shadow-md">
-                                4</div>
-                            <svg class="w-16 h-16 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="5"></circle>
-                                <line x1="12" y1="1" x2="12" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="23"></line>
-                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                                <line x1="1" y1="12" x2="3" y2="12"></line>
-                                <line x1="21" y1="12" x2="23" y2="12"></line>
-                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                            </svg>
-                        </div>
-                        <h4 class="font-bold text-xl mb-3 text-gray-800">Đặt ở nơi <br> có ánh sáng</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">Hãy để chậu cây ở ban công hay cửa sổ, nơi có
-                            nắng và những khoảnh khắc bình yên.</p>
-                    </div>
-
-                    <div class="text-center group lg:col-span-1 md:col-span-3 lg:col-auto">
-                        <div
-                            class="aspect-square bg-cream rounded-[2rem] flex items-center justify-center p-10 mb-6 transition-all duration-300 group-hover:bg-sage group-hover:shadow-lg group-hover:-translate-y-2 relative md:w-1/3 lg:w-full md:mx-auto">
-                            <div
-                                class="absolute -top-4 -right-4 w-10 h-10 bg-primary text-white font-bold rounded-full flex items-center justify-center text-lg shadow-md">
-                                5</div>
-                            <svg class="w-16 h-16 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                            </svg>
-                        </div>
-                        <h4 class="font-bold text-xl mb-3 text-gray-800">Ghi lại câu <br> chuyện của bạn</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">Viết tên hoặc ngày bắt đầu lên bảng tên để lưu
-                            giữ kỷ niệm nhỏ của bạn.</p>
-                    </div>
-                </div>
-
-                <div
-                    class="mt-24 p-10 bg-primary/10 rounded-[2rem] text-center max-w-4xl mx-auto shadow-sm border border-primary/20">
-                    <svg class="w-10 h-10 text-primary mx-auto mb-4 opacity-50" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
-                    <p class="text-xl md:text-2xl italic text-gray-800 font-medium">
-                        "BreaTree không chỉ là việc trồng một cái cây, mà là một hành trình để đánh thức tâm hồn xanh
-                        đang ngủ yên trong trái tim mỗi chúng ta."
-                    </p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-[#2A352D] text-white py-16 border-t-[8px] border-primary">
-        <div class="container mx-auto px-6">
-            <div
-                class="flex flex-col md:flex-row justify-between items-start gap-12 border-b border-white/10 pb-12 mb-8">
-                <div class="max-w-sm">
-                    <img alt="BreaTree Logo" class="h-12 w-auto object-contain mb-6 grayscale brightness-200"
-                        src="images/logo.png" onerror="this.src='https://via.placeholder.com/150x40?text=BreaTree'" />
-                    <p class="text-gray-400 leading-relaxed">
-                        Chúng tôi tin rằng mỗi mầm xanh được gieo xuống là một hy vọng mới được thắp lên cho tâm hồn.
-                        BreaTree - Thở cùng thiên nhiên.
-                    </p>
-                </div>
-                <div class="flex gap-16">
-                    <div>
-                        <h5 class="font-bold mb-6 text-lg tracking-wide uppercase">Khám phá</h5>
-                        <ul class="text-gray-400 space-y-3">
-                            <li><a class="hover:text-white transition-colors flex items-center gap-2"
-                                    href="#problem"><span class="w-1 h-1 bg-primary rounded-full"></span> Vấn đề</a>
-                            </li>
-                            <li><a class="hover:text-white transition-colors flex items-center gap-2"
-                                    href="#solution"><span class="w-1 h-1 bg-primary rounded-full"></span> Giải pháp</a>
-                            </li>
-                            <li><a class="hover:text-white transition-colors flex items-center gap-2"
-                                    href="#packaging"><span class="w-1 h-1 bg-primary rounded-full"></span> Sản phẩm</a>
-                            </li>
-                            <li><a class="hover:text-white transition-colors flex items-center gap-2"
-                                    href="#instructions"><span class="w-1 h-1 bg-primary rounded-full"></span> Hướng
-                                    dẫn</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center">
-                <p>© 2026 BreaTree Portfolio. All rights reserved.</p>
-                <p class="mt-2 md:mt-0">Design for a <span class="text-primary font-semibold">greener life</span>.</p>
-            </div>
         </div>
     </footer>
+
     <script>
-        const products = [
-            {
-                img: 'images/pot.png',
-                title: 'Chậu xơ dừa',
-                desc: 'Thân thiện mang lại sự ấm áp cho mầm xanh của bạn.'
-            },
-            {
-                img: 'images/seeds.png',
-                title: 'Hạt giống yêu thương',
-                desc: 'Những hạt giống được tuyển chọn kỹ lưỡng, mang hy vọng nảy mầm.'
-            },
-            {
-                img: 'images/nameboard.png',
-                title: 'Bảng tên ghi nhớ',
-                desc: 'Lưu giữ từng khoảnh khắc và cái tên bạn dành cho cây.'
-            },
-            {
-                img: 'images/blueprint.png',
-                title: 'Vỏ hộp nhật ký',
-                desc: 'Nơi bạn kể câu chuyện về hành trình chữa lành của mình.'
-            },
-            {
-                img: 'images/giftbox.png',
-                title: 'Hộp quà chân thành',
-                desc: 'Món quà từ trái tim xanh gửi đến những người thương yêu.'
-            }
-        ];
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
 
-        let currentIndex = 0;
+        // Horizontal Scroll Interactions for Product Slider
+        const slider = document.querySelector('.no-scrollbar');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
 
-        function changeProduct() {
-            const img = document.getElementById('slider-img');
-            const title = document.getElementById('product-title');
-            const desc = document.getElementById('product-desc');
-            const contentBox = document.getElementById('product-content');
-
-            currentIndex = (currentIndex + 1) % products.length;
-            const item = products[currentIndex];
-
-            // Hiệu ứng mượt mà hơn
-            img.style.transform = 'scale(0.95)';
-            img.style.opacity = '0';
-            contentBox.style.opacity = '0';
-            contentBox.style.transform = 'translateX(20px)';
-
-            setTimeout(() => {
-                img.src = item.img;
-                img.alt = item.title;
-                // Nếu chưa có hình thật thì load placeholder
-                img.onerror = function () { this.src = 'https://via.placeholder.com/400x400?text=' + encodeURIComponent(item.title); };
-
-                title.innerText = item.title;
-                desc.innerText = item.desc;
-
-                img.style.transform = 'scale(1)';
-                img.style.opacity = '1';
-                contentBox.style.opacity = '1';
-                contentBox.style.transform = 'translateX(0)';
-            }, 300);
+        // Next/Prev Buttons scroll handling
+        const prevBtn = document.getElementById('slider-prev');
+        const nextBtn = document.getElementById('slider-next');
+        if (prevBtn && nextBtn && slider) {
+            prevBtn.addEventListener('click', () => {
+                const cardWidth = slider.querySelector('.glass-card').offsetWidth + 24; // card width + gap
+                slider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            });
+            nextBtn.addEventListener('click', () => {
+                const cardWidth = slider.querySelector('.glass-card').offsetWidth + 24; // card width + gap
+                slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            });
         }
+
+        // Nav links active state highlight on click and scroll (Scrollspy)
+        const navLinks = document.querySelectorAll('nav a[href^="#"]:not([href="#"])');
+        const sections = Array.from(navLinks).map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+        let isScrollingFromClick = false;
+        let scrollTimeout;
+
+        function setActiveLink(activeHref) {
+            navLinks.forEach(link => {
+                const isTarget = link.getAttribute('href') === activeHref;
+                if (isTarget) {
+                    link.classList.remove('text-on-surface-variant', 'border-transparent');
+                    link.classList.add('text-primary', 'font-bold', 'border-primary');
+                } else {
+                    link.classList.remove('text-primary', 'font-bold', 'border-primary');
+                    link.classList.add('text-on-surface-variant', 'border-transparent');
+                }
+            });
+        }
+
+        // Click handler for smooth scrolling & instant active state
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                setActiveLink(href);
+
+                isScrollingFromClick = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrollingFromClick = false;
+                }, 800); // Disable scrollspy for 800ms during smooth scroll
+            });
+        });
+
+        // Scrollspy to update active link as user scrolls
+        const scrollspyObserver = new IntersectionObserver((entries) => {
+            if (isScrollingFromClick) return;
+
+            // Check if scrolled to the very bottom of the page
+            if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+                setActiveLink('#reviews');
+                return;
+            }
+
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    setActiveLink(`#${id}`);
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -50% 0px',
+            threshold: 0.1
+        });
+
+        sections.forEach(section => scrollspyObserver.observe(section));
+
+        // Fallback for scrolling manually to the bottom of the page
+        window.addEventListener('scroll', () => {
+            if (isScrollingFromClick) return;
+            if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+                setActiveLink('#reviews');
+            }
+        });
     </script>
 </body>
 
